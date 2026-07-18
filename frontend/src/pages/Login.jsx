@@ -40,7 +40,7 @@ const Login = () => {
           <h1>Teach one. Learn one.</h1>
           <p>
             Find a student whose skills complete yours — you teach what you know, they teach what
-            you want to learn. When it's a match, jump straight into a Google Meet session.
+            you want to learn. When it's a match, jump straight into a video call session.
           </p>
           <div className="auth-visual-tags">
             <span>React ⇄ UI Design</span>

@@ -16,7 +16,7 @@ const Register = () => {
     setError('');
 
     if (form.password !== form.confirm) {
-      setError('Password and confirm password are not match');
+      setError('Password and confirm password do not match ');
       return;
     }
 
@@ -25,8 +25,7 @@ const Register = () => {
       await register(form.name, form.email, form.password);
       navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.message || 
-        "We couldn't create your account. Please try again.");
+      setError(err.response?.data?.message || "Couldn't create the account. Please try again");
     } finally {
       setLoading(false);
     }
@@ -47,12 +46,12 @@ const Register = () => {
           <h1>Every skill you know is someone's next lesson.</h1>
           <p>
             Add what you can teach and what you want to learn. We'll match you with a student
-            heading the opposite way, then hand you both a Google Meet link to get started.
+            heading the opposite way, then hand you both a video call link to get started.
           </p>
           <ul className="auth-visual-steps">
             <li>List your teach &amp; learn skills</li>
             <li>Get matched automatically</li>
-            <li>Accept a request → meet on Google Meet</li>
+            <li>Accept a request → meet on a video call</li>
           </ul>
         </div>
       </div>
@@ -71,7 +70,7 @@ const Register = () => {
 
           <label className="field">
             <span>Email</span>
-            <input type="email" name="email" required value={form.email} onChange={handleChange} placeholder="you@example.com" />
+            <input type="email" name="email" required value={form.email} onChange={handleChange} placeholder="" />
           </label>
 
           <div className="field-row">

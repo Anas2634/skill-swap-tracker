@@ -35,7 +35,7 @@ const Matches = () => {
     }
   };
 
-  if (loading) return <Loader label="Perfect matches dhoonde ja rahe hain" />;
+  if (loading) return <Loader label="Finding your perfect skill matches..." />;
 
   return (
     <div className="page">

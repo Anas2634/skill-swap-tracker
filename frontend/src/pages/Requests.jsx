@@ -39,7 +39,7 @@ const Requests = () => {
     }
   };
 
-  if (loading) return <Loader label="Loding Request" />;
+  if (loading) return <Loader label="Loading requests..." />;
 
   const list = tab === 'received' ? data.received : data.sent;
   const pendingReceivedCount = data.received.filter((r) => r.status === 'pending').length;
@@ -48,7 +48,7 @@ const Requests = () => {
     <div className="page">
       <header className="page-header">
         <h1>Swap requests</h1>
-        <p>Accept the request to receive a Google Meet link and begin your session</p>
+        <p>Accept the request to receive the video call link and start the session</p>
       </header>
 
       <div className="tabs">
@@ -63,11 +63,11 @@ const Requests = () => {
 
       {list.length === 0 ? (
         <EmptyState
-          title={tab === 'received' ? "You haven't received any requests yet" : 'No requests sent'}
+          title={tab === 'received' ? 'No requests received yet' : 'You haven’t sent any requests yet'}
           message={
             tab === 'received'
               ? 'When a student sends you a swap request, it will appear here.'
-              : 'Send a swap request to a student from the Matches tab.'
+  : 'Send a swap request to a student from the Matches tab.'
           }
         />
       ) : (

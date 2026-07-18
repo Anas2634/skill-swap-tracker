@@ -166,6 +166,23 @@ button {
   box-shadow: 0 12px 28px -10px rgba(217, 122, 46, 0.55);
 }
 
+.request-card-matched-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn-whatsapp {
+  background: #25d366;
+  color: #fff;
+}
+
+.btn-whatsapp:hover {
+  background: #1fb959;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px -10px rgba(37, 211, 102, 0.55);
+}
+
 .live-dot {
   width: 8px;
   height: 8px;
@@ -306,7 +323,7 @@ button {
 
 .auth-card {
   width: 100%;
-  max-width: 380px;
+  max-width: 520px;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
@@ -361,6 +378,12 @@ button {
 .field-row {
   display: flex;
   gap: 14px;
+}
+
+.field-hint {
+  font-weight: 400;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
 }
 
 .field input,

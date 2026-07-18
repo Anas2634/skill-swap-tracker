@@ -43,16 +43,31 @@ const RequestCard = ({ request, direction, onAccept, onReject, busy }) => {
         <p className="request-waiting">Waiting for {person?.name?.split(' ')[0]} to respond…</p>
       )}
 
-      {request.status === 'accepted' && request.meetLink && (
-        <a
-          className="btn btn-meet btn-block"
-          href={request.meetLink}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <span className="live-dot" aria-hidden="true" />
-          Join Google Meet
-        </a>
+      {request.status === 'accepted' && (request.meetLink || person?.whatsapp) && (
+        <div className="request-card-matched-actions">
+          {request.meetLink && (
+            <a
+              className="btn btn-meet btn-block"
+              href={request.meetLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="live-dot" aria-hidden="true" />
+              Join Video Call
+            </a>
+          )}
+
+          {person?.whatsapp && (
+            <a
+              className="btn btn-whatsapp btn-block"
+              href={`https://wa.me/${person.whatsapp.replace(/\D/g, '')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Message {person.name?.split(' ')[0]} on WhatsApp
+            </a>
+          )}
+        </div>
       )}
 
       {request.status === 'rejected' && <p className="request-waiting muted">This swap didn't go ahead.</p>}

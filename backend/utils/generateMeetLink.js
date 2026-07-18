@@ -1,9 +1,6 @@
-// Google Meet asal codes lowercase letters se bany hoty hain, pattern: xxx-xxxx-xxx
-// Yahan hum bilkul wesa hi random-looking code generate kar k link bana rahy hain.
-// NOTE: Ye asal Google Meet API se create nahi hota (koi OAuth setup nahi lagta),
-// bas ek unique meeting-style link generate ho k dono matched users k beech store ho jata hai.
 
-const CHARS = 'abcdefghijklmnopqrstuvwxyz';
+
+const CHARS = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
 const randomBlock = (length) => {
   let block = '';
@@ -14,8 +11,8 @@ const randomBlock = (length) => {
 };
 
 const generateMeetLink = () => {
-  const code = `${randomBlock(3)}-${randomBlock(4)}-${randomBlock(3)}`;
-  return `https://meet.google.com/${code}`;
+  const roomName = `SkillSwap-${randomBlock(10)}`;
+  return `https://meet.jit.si/${roomName}`;
 };
 
 module.exports = generateMeetLink;
