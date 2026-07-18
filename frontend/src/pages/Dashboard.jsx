@@ -412,7 +412,7 @@ const Dashboard = () => {
               type="text"
               value={profileForm.whatsapp}
               onChange={(e) => setProfileForm({ ...profileForm, whatsapp: e.target.value })}
-              placeholder=""
+              placeholder="It's Optional"
             />
             <small className="field-hint">
              This number will only be visible after a swap request has been accepted.
@@ -442,7 +442,7 @@ const Dashboard = () => {
                 onChange={(e) => setTeachInput(e.target.value)}
                 onKeyDown={(e) => handleTagKeyDown(e, 'teach')}
                 onBlur={() => addTag('teach')}
-                placeholder=""
+                placeholder="Confirm first letter is capital"
               />
             </div>
           </div>
@@ -459,7 +459,7 @@ const Dashboard = () => {
                 onChange={(e) => setLearnInput(e.target.value)}
                 onKeyDown={(e) => handleTagKeyDown(e, 'learn')}
                 onBlur={() => addTag('learn')}
-                placeholder=""
+                placeholder="Confirm letter is capital"
               />
             </div>
           </div>
