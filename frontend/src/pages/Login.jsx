@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
@@ -9,6 +9,13 @@ const Login = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // Force-clear the form on every mount so browser autofill
+  // cannot silently pre-populate email/password fields.
+  useEffect(() => {
+    setForm({ email: '', password: '' });
+    setError('');
+  }, []);
+
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
@@ -17,6 +24,8 @@ const Login = () => {
     setLoading(true);
     try {
       await login(form.email, form.password);
+      // Clear the form immediately after a successful login
+      setForm({ email: '', password: '' });
       navigate('/dashboard');
     } catch (err) {
       setError(err.response?.data?.message || 'Login nahi ho saka, dobara koshish karein');
@@ -51,7 +60,7 @@ const Login = () => {
       </div>
 
       <div className="auth-form-side">
-        <form className="auth-card" onSubmit={handleSubmit}>
+        <form className="auth-card" onSubmit={handleSubmit} autoComplete="off">
           <h2>Welcome back</h2>
           <p className="auth-sub">Log in to see your matches and swap requests.</p>
 
@@ -59,12 +68,28 @@ const Login = () => {
 
           <label className="field">
             <span>Email</span>
-            <input type="email" name="email" required value={form.email} onChange={handleChange} placeholder="you@example.com" />
+            <input
+              type="email"
+              name="email"
+              required
+              value={form.email}
+              onChange={handleChange}
+              placeholder="you@example.com"
+              autoComplete="off"
+            />
           </label>
 
           <label className="field">
             <span>Password</span>
-            <input type="password" name="password" required value={form.password} onChange={handleChange} placeholder="••••••••" />
+            <input
+              type="password"
+              name="password"
+              required
+              value={form.password}
+              onChange={handleChange}
+              placeholder="••••••••"
+              autoComplete="new-password"
+            />
           </label>
 
           <button className="btn btn-primary btn-block" type="submit" disabled={loading}>
