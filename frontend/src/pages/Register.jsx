@@ -70,7 +70,7 @@ const Register = () => {
 
           <label className="field">
             <span>Email</span>
-            <input type="email" name="email" required value={form.email} onChange={handleChange} placeholder="" />
+            <input type="email" name="email" required value={form.email} onChange={handleChange} placeholder="You can also use a dummy email" />
           </label>
 
           <div className="field-row">
