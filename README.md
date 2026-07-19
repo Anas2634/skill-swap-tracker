@@ -32,17 +32,17 @@ Skill Swap Tracker is a MERN Stack web application that helps users exchange ski
 ## Live Demo
 
 Frontend:
-https://YOUR-VERCEL-LINK.vercel.app
+https://skill-swap-tracker.vercel.app
 
 Backend API:
-https://YOUR-RAILWAY-LINK.up.railway.app
+https://skill-swap-tracker-production.up.railway.app
 
 ## Installation
 
 ### Clone Repository
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/skill-swap-tracker.git
+git clone https://github.com/Anas2634/skill-swap-tracker
 ```
 
 ### Install Dependencies
