@@ -1,13 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+
+const emptyForm = { name: '', email: '', password: '', confirm: '' };
 
 const Register = () => {
   const { register } = useAuth();
   const navigate = useNavigate();
-  const [form, setForm] = useState({ name: '', email: '', password: '', confirm: '' });
+  const [form, setForm] = useState(emptyForm);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  // Force-clear the form on every mount so browser autofill
+  // cannot silently pre-populate old user data.
+  useEffect(() => {
+    setForm(emptyForm);
+    setError('');
+  }, []);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -23,6 +32,8 @@ const Register = () => {
     setLoading(true);
     try {
       await register(form.name, form.email, form.password);
+      // Clear the form immediately after successful registration
+      setForm(emptyForm);
       navigate('/dashboard');
     } catch (err) {
       setError(err.response?.data?.message || "Couldn't create the account. Please try again");
@@ -57,7 +68,7 @@ const Register = () => {
       </div>
 
       <div className="auth-form-side">
-        <form className="auth-card" onSubmit={handleSubmit}>
+        <form className="auth-card" onSubmit={handleSubmit} autoComplete="off">
           <h2>Create your account</h2>
           <p className="auth-sub">Takes less than a minute.</p>
 
@@ -65,22 +76,54 @@ const Register = () => {
 
           <label className="field">
             <span>Full name</span>
-            <input type="text" name="name" required value={form.name} onChange={handleChange} placeholder="" />
+            <input
+              type="text"
+              name="name"
+              required
+              value={form.name}
+              onChange={handleChange}
+              placeholder=""
+              autoComplete="off"
+            />
           </label>
 
           <label className="field">
             <span>Email</span>
-            <input type="email" name="email" required value={form.email} onChange={handleChange} placeholder="You can also use a dummy email" />
+            <input
+              type="email"
+              name="email"
+              required
+              value={form.email}
+              onChange={handleChange}
+              placeholder="You can also use a dummy email"
+              autoComplete="off"
+            />
           </label>
 
           <div className="field-row">
             <label className="field">
               <span>Password</span>
-              <input type="password" name="password" required value={form.password} onChange={handleChange} placeholder="" />
+              <input
+                type="password"
+                name="password"
+                required
+                value={form.password}
+                onChange={handleChange}
+                placeholder=""
+                autoComplete="new-password"
+              />
             </label>
             <label className="field">
               <span>Confirm</span>
-              <input type="password" name="confirm" required value={form.confirm} onChange={handleChange} placeholder="" />
+              <input
+                type="password"
+                name="confirm"
+                required
+                value={form.confirm}
+                onChange={handleChange}
+                placeholder=""
+                autoComplete="new-password"
+              />
             </label>
           </div>
 
