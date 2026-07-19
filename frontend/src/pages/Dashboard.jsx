@@ -1,27 +1,16 @@
-
-
-
-
-
-
-
-
-
-
-
-
 import { useEffect, useState } from 'react';
 import API from '../api/axios';
 import Loader from '../components/Loader';
 import SkillChip from '../components/SkillChip';
 import { useAuth } from '../context/AuthContext';
 
+const emptyProfileForm = { name: '', city: '', bio: '', whatsapp: '' };
 const emptySkillForm = { teachSkill: [], learnSkill: [], experience: '', availability: '' };
 
 const Dashboard = () => {
   const { user } = useAuth();
   const [profile, setProfile] = useState(null);
-  const [profileForm, setProfileForm] = useState({ name: '', city: '', bio: '', whatsapp: '' });
+  const [profileForm, setProfileForm] = useState(emptyProfileForm);
   const [skillForm, setSkillForm] = useState(emptySkillForm);
   const [teachInput, setTeachInput] = useState('');
   const [learnInput, setLearnInput] = useState('');
@@ -37,19 +26,10 @@ const Dashboard = () => {
           API.get('/profile'),
           API.get('/skill'),
         ]);
+        // Only keep this data for reference (e.g. showing name elsewhere).
+        // Forms are intentionally NOT pre-filled — they stay blank
+        // on every page load / refresh, as requested.
         setProfile(profileData);
-        setProfileForm({
-          name: profileData.name || '',
-          city: profileData.city || '',
-          bio: profileData.bio || '',
-          whatsapp: profileData.whatsapp || '',
-        });
-        setSkillForm({
-          teachSkill: skillData.teachSkill || [],
-          learnSkill: skillData.learnSkill || [],
-          experience: skillData.experience || '',
-          availability: skillData.availability || '',
-        });
       } catch (err) {
         // agar skills abhi tak add nahi hui, blank form hi rehne do
       } finally {
@@ -71,6 +51,8 @@ const Dashboard = () => {
       const { data } = await API.put('/profile', profileForm);
       setProfile(data);
       showToast('Profile updated ✔');
+      // Clear the profile form right after successful save
+      setProfileForm(emptyProfileForm);
     } catch (err) {
       showToast(err.response?.data?.message || 'Update failed. Please try again');
     } finally {
@@ -110,14 +92,12 @@ const Dashboard = () => {
     }
     setSavingSkills(true);
     try {
-      const { data } = await API.post('/skill', skillForm);
-      setSkillForm({
-        teachSkill: data.teachSkill,
-        learnSkill: data.learnSkill,
-        experience: data.experience || '',
-        availability: data.availability || '',
-      });
+      await API.post('/skill', skillForm);
       showToast('Skills saved. Now check the Matches tab ✔');
+      // Clear the skills form right after successful save
+      setSkillForm(emptySkillForm);
+      setTeachInput('');
+      setLearnInput('');
     } catch (err) {
       showToast(err.response?.data?.message || 'Failed to save skills');
     } finally {
